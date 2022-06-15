@@ -8,7 +8,6 @@ FullRound = 31
 SBoxLength = 4
 SBoxSize = 16
 NumOfParallelSBoxes = 16
-
 S_Box = [12, 5, 6, 11, 9, 0, 10, 13, 3, 14, 15, 8, 4, 7, 1, 2]
 P_Box = [0, 16, 32, 48, 1, 17, 33, 49, 2, 18, 34, 50, 3, 19, 35, 51, 4, 20, 36, 52, 5, 21, 37, 53, 6, 22, 38, 54, 7, 23, 39, 55, 8, 24, 40, 56, 9, 25, 41, 57, 10, 26, 42, 58, 11, 27, 43, 59, 12, 28, 44, 60, 13, 29, 45, 61, 14, 30, 46, 62, 15, 31, 47, 63]
 
@@ -37,7 +36,7 @@ for i in range(16):
 pladoc.append(".e")
 
 # Feed the PLA file to ESPRESSO to minimize clause count
-result = subprocess.run(['./espresso'], input = '\n'.join(pladoc), capture_output=True, text=True)
+result = subprocess.run(['espresso'], input = '\n'.join(pladoc), capture_output=True, text=True)
 
 # Crop and parse the result file to S-Box Constraints
 SBoxConstraints_1 = result.stdout.split("\n")[3:-2]
@@ -65,7 +64,6 @@ def GenObjectiveFunction(cnfdoc, x, s, n, k):
       for i in range(n):
          cnfdoc.append('-' + str(x[i]) + ' 0')
       return
-   
    # Generate Sequential Counter Circuit
    cnfdoc.append('-' + str(x[0]) + ' ' + str(s[0][0]) + ' 0')
    for j in range(1, k):
@@ -90,9 +88,8 @@ def GenMatsuiSetOfBound(type, targetround, totalround):
          MatsuiBounds.append([start, end])
    if (type == "E"):
       end = targetround
-      for start in range(0, end):
+      for start in range(end-1, -1, -1):
          MatsuiBounds.append([start, end])
-   
    return MatsuiBounds
 
 def GenMatsuiConstraint(cnfdoc, x, s, n, k, left, right, m):
@@ -101,7 +98,6 @@ def GenMatsuiConstraint(cnfdoc, x, s, n, k, left, right, m):
       for i in range(left, right + 1):
          cnfdoc.append('-' + str(x[i]) + ' 0')
       return
-   
    # Generate Matsui's Bounding Condition 
    if (left == 0 and right < n-1):
       for i in range(1, right + 1):
@@ -120,27 +116,21 @@ def FormulateCNF(round, k, MatsuiBounds):
    # Allocate varaiables
    NumOfStateVar = (round + 1) * BlockSize
    differential = np.arange(1, NumOfStateVar + 1).reshape(round + 1, BlockSize)
-   
    n = round * NumOfParallelSBoxes
    roundin = differential[0: round]
-   roundout = differential[1 : round + 1]
-   
-   # w: dummy variables record the activeness of S-Boxes at each round
+   roundout = differential[1 : round + 1]   
+   # w: dummy variables record the activeness of S-Boxes at each round, objective variables
    NumOfDummyVar = round * NumOfParallelSBoxes 
    w = np.arange(NumOfStateVar+ 1, NumOfStateVar + NumOfDummyVar + 1).reshape(round, NumOfParallelSBoxes)
-   
    # s: auxiliary variables to be used in sequential counter circuit, record partial sums
    NumOfSCCVar = (NumOfDummyVar - 1) * k
    s = np.arange(NumOfStateVar + NumOfDummyVar + 1, NumOfStateVar + NumOfDummyVar + NumOfSCCVar + 1).reshape(NumOfDummyVar -1, k)
-
-   # Write clauses
+   # Initialize DIMAC file
    cnfdoc = ['p cnf ', '']
-
    # Force nonzero input
    for i in range(BlockSize):
       cnfdoc[1] += str(roundin[0][i]) + ' '
    cnfdoc[1] += '0'
-   
    # Loop all rounds
    for r in range(round):
       # Denote round function as input = a -S-Box-> b -P-Box-> c = output
@@ -149,26 +139,21 @@ def FormulateCNF(round, k, MatsuiBounds):
       b = np.zeros(BlockSize, np.int64)
       for i in range(BlockSize):
          b[i] = c[P_Box[i]]
-      
       # Enumerate vector x = a||b||w for each S-Box
       for i in range(NumOfParallelSBoxes):
          x = np.concatenate((a[4*i : 4*(i+1)], b[4*i : 4*(i+1)], np.asarray(w[r][i])), axis = None)
          GenSBoxConstraint_1(cnfdoc, x)
-      
       # Generate objective function
       objvar = w.reshape(-1)
       GenObjectiveFunction(cnfdoc, objvar, s, n, k)
-
       # Generate Matsui's Bounding Conditions
       for [startround, endround] in MatsuiBounds:
          left, right = 16 * startround, 16 * endround - 1
          m = k - DiffActiveSbox[startround] - DiffActiveSbox[round - endround]
          GenMatsuiConstraint(cnfdoc, objvar, s, n, k, left, right, m)
-
-   # Write CNF file
+   # Complete DIMAC file
    TotalNumOfVar = NumOfStateVar + NumOfDummyVar + NumOfSCCVar 
    TotalNumOfClause = len(cnfdoc) - 1
-
    cnfdoc[0] += str(TotalNumOfVar) + ' ' + str(TotalNumOfClause)
    return cnfdoc
 
