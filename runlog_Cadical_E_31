@@ -1,0 +1,24 @@
+Round1:  Minimum Active SBox = 1 ; Solver Runtime = 0.015150
+Round2:  Minimum Active SBox = 2 ; Solver Runtime = 0.008596
+Round3:  Minimum Active SBox = 4 ; Solver Runtime = 0.008147
+Round4:  Minimum Active SBox = 6 ; Solver Runtime = 0.011940
+Round5:  Minimum Active SBox = 10; Solver Runtime = 0.043015
+Round6:  Minimum Active SBox = 12; Solver Runtime = 0.054915
+Round7:  Minimum Active SBox = 14; Solver Runtime = 0.091012
+Round8:  Minimum Active SBox = 16; Solver Runtime = 0.178836
+Round9:  Minimum Active SBox = 18; Solver Runtime = 0.058608
+Round10: Minimum Active SBox = 20; Solver Runtime = 0.116647
+Round11: Minimum Active SBox = 22; Solver Runtime = 0.784362
+Round12: Minimum Active SBox = 24; Solver Runtime = 0.793887
+Round13: Minimum Active SBox = 26; Solver Runtime = 3.519498
+Round14: Minimum Active SBox = 28; Solver Runtime = 1.806863
+Round15: Minimum Active SBox = 30; Solver Runtime = 1.700002
+Round16: Minimum Active SBox = 32; Solver Runtime = 2.500793
+Round17: Minimum Active SBox = 34; Solver Runtime = 0.219260
+Round18: Minimum Active SBox = 36; Solver Runtime = 4.578022
+Round19: Minimum Active SBox = 38; Solver Runtime = 0.394392
+Round20: Minimum Active SBox = 40; Solver Runtime = 3.015971
+Round21: Minimum Active SBox = 42; Solver Runtime = 3.638703
+Round22: Minimum Active SBox = 44; Solver Runtime = 7.627405
+Round23: Minimum Active SBox = 46; Solver Runtime = 11.156505
+Round24: Minimum Active SBox = 48; Solver Runtime = 3.142678

@@ -88,6 +88,8 @@ def GenMatsuiSetOfBound(type, targetround, totalround):
          MatsuiBounds.append([start, end])
    if (type == "E"):
       end = targetround
+      if (end > totalround):
+         end = totalround
       for start in range(end-1, -1, -1):
          MatsuiBounds.append([start, end])
    return MatsuiBounds
@@ -168,12 +170,9 @@ def CallSolver(cnfdoc, solver):
    if(solution.startswith("s SATISFIABLE")):
       return time.time() - start_time, solution
    else:
-      return -1, solution
+      return -1, ""
 
-SearchRoundStart = 1
-SearchRoundEnd = 32
-SBoxLimit = 1
-
+# Start of main function
 # Initialization
 DiffActiveSbox = np.zeros(FullRound + 1, np.int64)
 SolutionSet = []
@@ -187,21 +186,21 @@ target_round = int(input("Enter target round for Matsui's bounding condition, in
 open("./runlog_" + solver_choice + '_' + type_matsui + '_' + str(target_round), "w").close()
 
 # Search start
-total_round_start = time.time()
-for round in range(SearchRoundStart, SearchRoundEnd):
+for round in range(1, 32):
    MatsuiBounds =  GenMatsuiSetOfBound(type_matsui, target_round, round)
-   current_round_start = time.time()
+   SBoxLimit = DiffActiveSbox[round-1] + 1   # Assmption: After 1 round, S-Box limit at least increase 1
+   #current_round_start = time.time()
    while True:
       cnfdoc = FormulateCNF(round, SBoxLimit, MatsuiBounds)
       Runtime, Solution = CallSolver(cnfdoc, solver_choice)
-      if (Runtime > 0):
+      if (Runtime == -1):
+         SBoxLimit += 1
+      else:
          # Stop Timer
          time_end = time.time()
          # Record round information
          DiffActiveSbox[round] = SBoxLimit   # Update active S-box limit
          SolutionSet.append([round, SBoxLimit, Runtime, Solution])   # Record solution
          with open("./runlog_" + solver_choice + '_' + type_matsui + '_' + str(target_round), "a") as log:
-            log.write("Round: " + str(round) + "; Minimum Active SBox: " + str(SBoxLimit) + "; Solver Runtime: " + str(Runtime) + "; Current Round Search Cost: " + str(time_end-current_round_start) + "; Cumulative Search Cost: " + str(time_end-total_round_start) + "\n")
+            log.write("Round" + "{0:<3}".format(str(round)+':') + " Minimum Active SBox = " + "{0:<2}".format(str(SBoxLimit)) + "; Solver Runtime = " + "{0:1.6f}".format(Runtime) + "\n")
          break
-      else:
-         SBoxLimit += 1

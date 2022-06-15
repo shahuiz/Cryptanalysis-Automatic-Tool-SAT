@@ -1,31 +1,31 @@
-Round: 1; Minimum Active SBox: 1; Solver Runtime: 0.01262807846069336; Current Round Search Cost: 0.020090818405151367; Cumulative Search Cost: 0.0201108455657959
-Round: 2; Minimum Active SBox: 2; Solver Runtime: 0.009347915649414062; Current Round Search Cost: 0.04173398017883301; Cumulative Search Cost: 0.062422990798950195
-Round: 3; Minimum Active SBox: 4; Solver Runtime: 0.008202075958251953; Current Round Search Cost: 0.08526301383972168; Cumulative Search Cost: 0.14802193641662598
-Round: 4; Minimum Active SBox: 6; Solver Runtime: 0.009343147277832031; Current Round Search Cost: 0.1373898983001709; Cumulative Search Cost: 0.2856729030609131
-Round: 5; Minimum Active SBox: 10; Solver Runtime: 0.037544965744018555; Current Round Search Cost: 0.948326826095581; Cumulative Search Cost: 1.2342448234558105
-Round: 6; Minimum Active SBox: 12; Solver Runtime: 0.09421801567077637; Current Round Search Cost: 0.5717058181762695; Cumulative Search Cost: 1.8062539100646973
-Round: 7; Minimum Active SBox: 14; Solver Runtime: 0.0962529182434082; Current Round Search Cost: 0.6663877964019775; Cumulative Search Cost: 2.4729578495025635
-Round: 8; Minimum Active SBox: 16; Solver Runtime: 0.15785622596740723; Current Round Search Cost: 0.753211259841919; Cumulative Search Cost: 3.226530075073242
-Round: 9; Minimum Active SBox: 18; Solver Runtime: 0.04159903526306152; Current Round Search Cost: 0.7214679718017578; Cumulative Search Cost: 3.9483017921447754
-Round: 10; Minimum Active SBox: 20; Solver Runtime: 0.04756307601928711; Current Round Search Cost: 0.9742422103881836; Cumulative Search Cost: 4.9229090213775635
-Round: 11; Minimum Active SBox: 22; Solver Runtime: 0.07772088050842285; Current Round Search Cost: 1.2082929611206055; Cumulative Search Cost: 6.131537914276123
-Round: 12; Minimum Active SBox: 24; Solver Runtime: 0.10834789276123047; Current Round Search Cost: 1.5198101997375488; Cumulative Search Cost: 7.651977062225342
-Round: 13; Minimum Active SBox: 26; Solver Runtime: 0.20009398460388184; Current Round Search Cost: 1.937542200088501; Cumulative Search Cost: 9.590069055557251
-Round: 14; Minimum Active SBox: 28; Solver Runtime: 0.22048091888427734; Current Round Search Cost: 2.3263590335845947; Cumulative Search Cost: 11.916868925094604
-Round: 15; Minimum Active SBox: 30; Solver Runtime: 0.251939058303833; Current Round Search Cost: 2.905115842819214; Cumulative Search Cost: 14.822450876235962
-Round: 16; Minimum Active SBox: 32; Solver Runtime: 0.2674248218536377; Current Round Search Cost: 3.3869690895080566; Cumulative Search Cost: 18.209805011749268
-Round: 17; Minimum Active SBox: 34; Solver Runtime: 0.20269417762756348; Current Round Search Cost: 3.9778170585632324; Cumulative Search Cost: 22.187981128692627
-Round: 18; Minimum Active SBox: 36; Solver Runtime: 0.23077702522277832; Current Round Search Cost: 4.540782690048218; Cumulative Search Cost: 26.72921872138977
-Round: 19; Minimum Active SBox: 38; Solver Runtime: 0.24888181686401367; Current Round Search Cost: 5.1678690910339355; Cumulative Search Cost: 31.897516012191772
-Round: 20; Minimum Active SBox: 40; Solver Runtime: 0.28462791442871094; Current Round Search Cost: 6.002270936965942; Cumulative Search Cost: 37.90044808387756
-Round: 21; Minimum Active SBox: 42; Solver Runtime: 0.31923484802246094; Current Round Search Cost: 6.875333070755005; Cumulative Search Cost: 44.776355028152466
-Round: 22; Minimum Active SBox: 44; Solver Runtime: 0.36246490478515625; Current Round Search Cost: 7.911266088485718; Cumulative Search Cost: 52.68808197975159
-Round: 23; Minimum Active SBox: 46; Solver Runtime: 0.43118810653686523; Current Round Search Cost: 8.956789016723633; Cumulative Search Cost: 61.64542007446289
-Round: 24; Minimum Active SBox: 48; Solver Runtime: 0.5106499195098877; Current Round Search Cost: 10.16732406616211; Cumulative Search Cost: 71.81317400932312
-Round: 25; Minimum Active SBox: 50; Solver Runtime: 0.4974081516265869; Current Round Search Cost: 11.333359956741333; Cumulative Search Cost: 83.14728093147278
-Round: 26; Minimum Active SBox: 52; Solver Runtime: 0.6061780452728271; Current Round Search Cost: 12.644250869750977; Cumulative Search Cost: 95.79215288162231
-Round: 27; Minimum Active SBox: 54; Solver Runtime: 0.640078067779541; Current Round Search Cost: 14.071238994598389; Cumulative Search Cost: 109.86473798751831
-Round: 28; Minimum Active SBox: 56; Solver Runtime: 0.6783008575439453; Current Round Search Cost: 15.534911870956421; Cumulative Search Cost: 125.40037298202515
-Round: 29; Minimum Active SBox: 58; Solver Runtime: 0.7991130352020264; Current Round Search Cost: 17.909086227416992; Cumulative Search Cost: 143.30998611450195
-Round: 30; Minimum Active SBox: 60; Solver Runtime: 0.9599030017852783; Current Round Search Cost: 19.388906002044678; Cumulative Search Cost: 162.70041608810425
-Round: 31; Minimum Active SBox: 62; Solver Runtime: 0.8978030681610107; Current Round Search Cost: 21.14120388031006; Cumulative Search Cost: 183.84300899505615
+Round1:  Minimum Active SBox = 1 ; Solver Runtime = 0.016932010650634766; Current Round Search Cost = 0.028475046157836914
+Round2:  Minimum Active SBox = 2 ; Solver Runtime = 0.009097099304199219; Current Round Search Cost = 0.023138761520385742
+Round3:  Minimum Active SBox = 4 ; Solver Runtime = 0.008395195007324219; Current Round Search Cost = 0.06022334098815918
+Round4:  Minimum Active SBox = 6 ; Solver Runtime = 0.017524003982543945; Current Round Search Cost = 0.1104741096496582
+Round5:  Minimum Active SBox = 10; Solver Runtime = 0.0381922721862793; Current Round Search Cost = 0.8953790664672852
+Round6:  Minimum Active SBox = 12; Solver Runtime = 0.09455513954162598; Current Round Search Cost = 0.4910860061645508
+Round7:  Minimum Active SBox = 14; Solver Runtime = 0.09477019309997559; Current Round Search Cost = 0.5555579662322998
+Round8:  Minimum Active SBox = 16; Solver Runtime = 0.17364287376403809; Current Round Search Cost = 0.6413450241088867
+Round9:  Minimum Active SBox = 18; Solver Runtime = 0.04278826713562012; Current Round Search Cost = 0.5536720752716064
+Round10: Minimum Active SBox = 20; Solver Runtime = 0.04151010513305664; Current Round Search Cost = 0.710233211517334
+Round11: Minimum Active SBox = 22; Solver Runtime = 0.0655360221862793; Current Round Search Cost = 0.8703169822692871
+Round12: Minimum Active SBox = 24; Solver Runtime = 0.11319684982299805; Current Round Search Cost = 1.132314920425415
+Round13: Minimum Active SBox = 26; Solver Runtime = 0.2511112689971924; Current Round Search Cost = 1.4274029731750488
+Round14: Minimum Active SBox = 28; Solver Runtime = 0.22403526306152344; Current Round Search Cost = 1.6579301357269287
+Round15: Minimum Active SBox = 30; Solver Runtime = 0.23224902153015137; Current Round Search Cost = 1.9847931861877441
+Round16: Minimum Active SBox = 32; Solver Runtime = 0.26688194274902344; Current Round Search Cost = 2.320266008377075
+Round17: Minimum Active SBox = 34; Solver Runtime = 0.2025461196899414; Current Round Search Cost = 2.6175429821014404
+Round18: Minimum Active SBox = 36; Solver Runtime = 0.22205400466918945; Current Round Search Cost = 3.004607915878296
+Round19: Minimum Active SBox = 38; Solver Runtime = 0.25205206871032715; Current Round Search Cost = 3.51202392578125
+Round20: Minimum Active SBox = 40; Solver Runtime = 0.3092029094696045; Current Round Search Cost = 4.076349973678589
+Round21: Minimum Active SBox = 42; Solver Runtime = 0.3287479877471924; Current Round Search Cost = 4.694781064987183
+Round22: Minimum Active SBox = 44; Solver Runtime = 0.3585019111633301; Current Round Search Cost = 5.514371156692505
+Round23: Minimum Active SBox = 46; Solver Runtime = 0.40517282485961914; Current Round Search Cost = 6.140100955963135
+Round24: Minimum Active SBox = 48; Solver Runtime = 0.48212409019470215; Current Round Search Cost = 6.825516939163208
+Round25: Minimum Active SBox = 50; Solver Runtime = 0.48717379570007324; Current Round Search Cost = 7.655246734619141
+Round26: Minimum Active SBox = 52; Solver Runtime = 0.6495449542999268; Current Round Search Cost = 8.97199010848999
+Round27: Minimum Active SBox = 54; Solver Runtime = 0.6007258892059326; Current Round Search Cost = 9.60154104232788
+Round28: Minimum Active SBox = 56; Solver Runtime = 0.7204909324645996; Current Round Search Cost = 10.738236904144287
+Round29: Minimum Active SBox = 58; Solver Runtime = 0.7670571804046631; Current Round Search Cost = 12.084603786468506
+Round30: Minimum Active SBox = 60; Solver Runtime = 0.8744750022888184; Current Round Search Cost = 13.252909183502197
+Round31: Minimum Active SBox = 62; Solver Runtime = 1.0602738857269287; Current Round Search Cost = 14.672443151473999
