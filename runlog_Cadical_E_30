@@ -1,0 +1,31 @@
+Round1:  Minimum Active SBox = 1 ; Solving Cost = 0.015394; Cumulative Total Cost = 0.026909
+Round2:  Minimum Active SBox = 2 ; Solving Cost = 0.008519; Cumulative Total Cost = 0.050493
+Round3:  Minimum Active SBox = 4 ; Solving Cost = 0.007975; Cumulative Total Cost = 0.112376
+Round4:  Minimum Active SBox = 6 ; Solving Cost = 0.011435; Cumulative Total Cost = 0.226166
+Round5:  Minimum Active SBox = 10; Solving Cost = 0.038815; Cumulative Total Cost = 1.419218
+Round6:  Minimum Active SBox = 12; Solving Cost = 0.050613; Cumulative Total Cost = 2.012895
+Round7:  Minimum Active SBox = 14; Solving Cost = 0.085265; Cumulative Total Cost = 2.847608
+Round8:  Minimum Active SBox = 16; Solving Cost = 0.135735; Cumulative Total Cost = 3.986687
+Round9:  Minimum Active SBox = 18; Solving Cost = 0.057727; Cumulative Total Cost = 5.030561
+Round10: Minimum Active SBox = 20; Solving Cost = 0.118151; Cumulative Total Cost = 6.742397
+Round11: Minimum Active SBox = 22; Solving Cost = 0.780913; Cumulative Total Cost = 9.021771
+Round12: Minimum Active SBox = 24; Solving Cost = 0.807209; Cumulative Total Cost = 12.528770
+Round13: Minimum Active SBox = 26; Solving Cost = 3.524483; Cumulative Total Cost = 19.861941
+Round14: Minimum Active SBox = 28; Solving Cost = 1.787362; Cumulative Total Cost = 24.746138
+Round15: Minimum Active SBox = 30; Solving Cost = 1.648930; Cumulative Total Cost = 29.597187
+Round16: Minimum Active SBox = 32; Solving Cost = 2.510145; Cumulative Total Cost = 36.400735
+Round17: Minimum Active SBox = 34; Solving Cost = 0.215248; Cumulative Total Cost = 42.867379
+Round18: Minimum Active SBox = 36; Solving Cost = 4.562237; Cumulative Total Cost = 52.968359
+Round19: Minimum Active SBox = 38; Solving Cost = 0.391423; Cumulative Total Cost = 63.164730
+Round20: Minimum Active SBox = 40; Solving Cost = 3.012019; Cumulative Total Cost = 73.809964
+Round21: Minimum Active SBox = 42; Solving Cost = 3.630423; Cumulative Total Cost = 85.699332
+Round22: Minimum Active SBox = 44; Solving Cost = 7.631447; Cumulative Total Cost = 106.322792
+Round23: Minimum Active SBox = 46; Solving Cost = 11.195455; Cumulative Total Cost = 129.484406
+Round24: Minimum Active SBox = 48; Solving Cost = 3.017091; Cumulative Total Cost = 143.878918
+Round25: Minimum Active SBox = 50; Solving Cost = 9.629803; Cumulative Total Cost = 164.444664
+Round26: Minimum Active SBox = 52; Solving Cost = 1.318959; Cumulative Total Cost = 179.040816
+Round27: Minimum Active SBox = 54; Solving Cost = 441.709433; Cumulative Total Cost = 637.053175
+Round28: Minimum Active SBox = 56; Solving Cost = 10.731378; Cumulative Total Cost = 665.577817
+Round29: Minimum Active SBox = 58; Solving Cost = 17.147011; Cumulative Total Cost = 701.918940
+Round30: Minimum Active SBox = 60; Solving Cost = 28.905366; Cumulative Total Cost = 1158.574865
+Round31: Minimum Active SBox = 62; Solving Cost = 18.455875; Cumulative Total Cost = 1644.140227

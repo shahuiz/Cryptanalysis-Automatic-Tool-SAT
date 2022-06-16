@@ -20,7 +20,11 @@ for input_diff in range (0, 16):
       ddt[input_diff][output_diff] += 1
       truncated_ddt[input_diff][output_diff] = 1
 
-# Generate PLA file for PRESENT S-Box
+# !!IMPORTANT!! Espresso I/O is in SOP, while SAT solver forces input in POS
+# Inverse DDT: 0-> possible 1-> impossible, for later conversion from SOP to POS
+inv_trunc_ddt = np.int64(truncated_ddt == 0)
+
+# Generate PRESENT S-Box Constraints in SOP, 1 for impossible pattern, 0 for possible pattern
 pladoc = []
 pladoc.append('.i ' + str(2 * SBoxLength + 1))
 pladoc.append('.o 1')
@@ -28,32 +32,29 @@ for i in range(16):
    for j in range(16):            
       diff = str(bin(i)[2:].zfill(SBoxLength)) + str(bin(j)[2:].zfill(SBoxLength))
       if(diff[0:4] == '0000'):   # Inactive S-Box
-         pladoc.append(diff + "0 " + str(int(truncated_ddt[i][j])))
-         pladoc.append(diff + "1 0")
+         pladoc.append(diff + "0 " + str(inv_trunc_ddt[i][j]))
+         pladoc.append(diff + "1 1")
       else:                      # Active S-Box
-         pladoc.append(diff + "0 0")
-         pladoc.append(diff + "1 " + str(int(truncated_ddt[i][j])))
+         pladoc.append(diff + "0 1")
+         pladoc.append(diff + "1 " + str(inv_trunc_ddt[i][j]))
 pladoc.append(".e")
 
 # Feed the PLA file to ESPRESSO to minimize clause count
 result = subprocess.run(['espresso'], input = '\n'.join(pladoc), capture_output=True, text=True)
 
 # Crop and parse the result file to S-Box Constraints
-SBoxConstraints_1 = result.stdout.split("\n")[3:-2]
-# Iterpretation of ESPRESSO result: '1' = ON, '0' = OFF, '-' = DONT CARE
+SBoxConstraints = result.stdout.split("\n")[3:-2]
+# Iterpretation of ESPRESSO result: (SOP) '1' = ON, '0' = OFF, '-' = DONT_CARE; only return result = 1, for impossible patterns
 
-# Minor difference compared with original paper
-SBoxCNFConstraint_original = [ # Differential PRESENT (43) 9 bits(4+4+1): 1 for negative, 0 for positive, 9 for non-existence in CNF
-   [1, 0, 1, 9, 0, 1, 1, 9, 9], [9, 0, 0, 9, 1, 0, 1, 0, 9], [0, 9, 9, 1, 1, 1, 1, 0, 9], [9, 1, 0, 0, 9, 0, 1, 1, 9], [1, 0, 1, 9, 1, 1, 0, 0, 9], [1, 1, 0, 9, 0, 1, 1, 0, 9], [1, 1, 0, 9, 1, 1, 0, 9, 9], [0, 0, 1, 1, 1, 9, 0, 9, 9], [9, 1, 0, 1, 1, 1, 1, 9, 9], [9, 0, 1, 0, 1, 9, 1, 1, 9], [9, 1, 0, 0, 1, 1, 9, 1, 9], [0, 0, 0, 9, 1, 9, 1, 9, 9], [9, 0, 1, 0, 9, 0, 0, 1, 9], [9, 1, 0, 0, 0, 0, 9, 1, 9], [9, 1, 1, 0, 0, 9, 0, 9, 9], [9, 0, 1, 0, 9, 1, 1, 1, 9], [0, 0, 1, 9, 1, 0, 0, 9, 9], [9, 1, 1, 1, 1, 0, 1, 9, 9], [9, 0, 1, 1, 1, 1, 1, 9, 9], [0, 9, 0, 9, 9, 0, 0, 0, 1], [0, 1, 0, 9, 0, 0, 1, 9, 9], [0, 1, 1, 9, 0, 9, 0, 0, 9], [1, 1, 9, 0, 1, 9, 1, 1, 9], [0, 1, 0, 1, 9, 1, 1, 9, 9], [0, 1, 1, 9, 0, 9, 1, 1, 9], [9, 1, 1, 0, 1, 9, 1, 0, 9], [0, 1, 1, 9, 1, 9, 0, 1, 9], [9, 0, 0, 0, 1, 9, 9, 0, 9], [9, 9, 9, 9, 0, 0, 0, 0, 1], [9, 9, 9, 1, 0, 1, 0, 1, 9], [1, 9, 1, 1, 0, 9, 1, 9, 9], [0, 0, 9, 9, 0, 0, 9, 0, 1], [1, 0, 0, 1, 9, 9, 9, 1, 9], [1, 1, 9, 1, 1, 9, 0, 9, 9], [9, 0, 0, 9, 0, 9, 0, 1, 9], [9, 9, 9, 0, 0, 1, 0, 0, 9], [9, 1, 9, 9, 9, 9, 9, 9, 0], [0, 0, 0, 0, 9, 9, 9, 9, 1], [0, 0, 0, 1, 9, 9, 9, 0, 9], [9, 0, 0, 0, 9, 9, 1, 0, 9], [9, 9, 1, 9, 9, 9, 9, 9, 0], [9, 9, 9, 9, 9, 9, 9, 1, 0], [1, 9, 9, 9, 9, 9, 9, 9, 0]
-]
-
-def GenSBoxConstraint_1(cnfdoc, x):
-   for i in range(len(SBoxCNFConstraint_original)):
+# Convert SOP form to POS form: ON(SOP)->OFF(POS), OFF(SOP)->ON(POS), DONT_CARE(SOP)->DONT_CARE(POS)
+# Effect: S-Box constraints are each generated to exclude impossible patterns (result = 1 in SOP)
+def GenSBoxConstraint(cnfdoc, x):
+   for i in range(len(SBoxConstraints)):
       tempclause = ''
       for j in range(9):
-         if(SBoxCNFConstraint_original[i][j] == 9):
+         if(SBoxConstraints[i][j] == '-'):
             continue
-         if(SBoxCNFConstraint_original[i][j] == 1):
+         if(SBoxConstraints[i][j] == '1'):
             tempclause += '-'
          tempclause = tempclause + str(x[j]) + ' '
       cnfdoc.append(tempclause + '0')
@@ -144,7 +145,7 @@ def FormulateCNF(round, k, MatsuiBounds):
       # Enumerate vector x = a||b||w for each S-Box
       for i in range(NumOfParallelSBoxes):
          x = np.concatenate((a[4*i : 4*(i+1)], b[4*i : 4*(i+1)], np.asarray(w[r][i])), axis = None)
-         GenSBoxConstraint_1(cnfdoc, x)
+         GenSBoxConstraint(cnfdoc, x)
       # Generate objective function
       objvar = w.reshape(-1)
       GenObjectiveFunction(cnfdoc, objvar, s, n, k)
@@ -185,11 +186,11 @@ target_round = int(input("Enter target round for Matsui's bounding condition, in
 # Clear run log
 open("./runlog_" + solver_choice + '_' + type_matsui + '_' + str(target_round), "w").close()
 
+total_start = time.time()
 # Search start
 for round in range(1, 32):
    MatsuiBounds =  GenMatsuiSetOfBound(type_matsui, target_round, round)
    SBoxLimit = DiffActiveSbox[round-1] + 1   # Assmption: After 1 round, S-Box limit at least increase 1
-   #current_round_start = time.time()
    while True:
       cnfdoc = FormulateCNF(round, SBoxLimit, MatsuiBounds)
       Runtime, Solution = CallSolver(cnfdoc, solver_choice)
@@ -202,5 +203,5 @@ for round in range(1, 32):
          DiffActiveSbox[round] = SBoxLimit   # Update active S-box limit
          SolutionSet.append([round, SBoxLimit, Runtime, Solution])   # Record solution
          with open("./runlog_" + solver_choice + '_' + type_matsui + '_' + str(target_round), "a") as log:
-            log.write("Round" + "{0:<3}".format(str(round)+':') + " Minimum Active SBox = " + "{0:<2}".format(str(SBoxLimit)) + "; Solver Runtime = " + "{0:1.6f}".format(Runtime) + "\n")
+            log.write("Round" + "{0:<3}".format(str(round)+':') + " Minimum Active SBox = " + "{0:<2}".format(str(SBoxLimit)) + "; Solving Cost = " + "{0:1.6f}".format(Runtime) + "; Cumulative Total Cost = " + "{0:1.6f}".format(time_end-total_start) + "\n")
          break
